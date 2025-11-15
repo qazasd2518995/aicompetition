@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米集團企業調查專案報告 | Xiaomi Corporation Research</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --xiaomi-orange: #FF6900;
+            --xiaomi-dark: #000000;
+            --xiaomi-gray: #333333;
+            --xiaomi-light-gray: #F5F5F5;
+            --xiaomi-white: #FFFFFF;
+            --xiaomi-gradient: linear-gradient(135deg, #FF6900 0%, #FF8F00 100%);
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Roboto', sans-serif;
+            color: var(--xiaomi-gray);
+            background-color: var(--xiaomi-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.2rem 5%;
+            box-shadow: 0 2px 20px rgba(255, 105, 0, 0.1);
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        nav .logo img {
+            height: 35px;
+            width: auto;
+        }
+
+        nav .logo span {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--xiaomi-white);
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav ul li a {
+            color: var(--xiaomi-white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--xiaomi-orange);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--xiaomi-orange);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a.active {
+            color: var(--xiaomi-orange);
+        }
+
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255, 105, 0, 0.15) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--xiaomi-white);
+            z-index: 2;
+            max-width: 1000px;
+            padding: 0 5%;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 .highlight {
+            color: var(--xiaomi-orange);
+            display: block;
+            font-size: 5.5rem;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .hero .stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .hero .stat-item {
+            text-align: center;
+        }
+
+        .hero .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--xiaomi-orange);
+            display: block;
+        }
+
+        .hero .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--xiaomi-white);
+            font-size: 0.85rem;
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 8rem 5%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        section .container {
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--xiaomi-dark);
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 4rem;
+            font-weight: 300;
+        }
+
+        .highlight-text {
+            color: var(--xiaomi-orange);
+            font-weight: 700;
+        }
+
+        /* Executive Summary */
+        .executive-summary {
+            background: var(--xiaomi-light-gray);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .summary-card {
+            background: var(--xiaomi-white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 4px solid var(--xiaomi-orange);
+        }
+
+        .summary-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(255, 105, 0, 0.15);
+        }
+
+        .summary-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--xiaomi-dark);
+        }
+
+        .summary-card .number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--xiaomi-orange);
+            display: block;
+            margin: 1rem 0;
+        }
+
+        /* Business Segments */
+        .business-segments {
+            background: var(--xiaomi-white);
+        }
+
+        .segment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .segment-card {
+            background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .segment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--xiaomi-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .segment-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .segment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(255, 105, 0, 0.15);
+        }
+
+        .segment-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--xiaomi-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        /* Chart Sections */
+        .chart-section {
+            background: var(--xiaomi-light-gray);
+        }
+
+        .chart-container {
+            background: var(--xiaomi-white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            margin-top: 2rem;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            background: var(--xiaomi-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .gallery-caption {
+            padding: 1.5rem;
+            font-size: 0.95rem;
+            color: #666;
+            background: var(--xiaomi-light-gray);
+        }
+
+        /* Future Outlook */
+        .future-outlook {
+            background: var(--xiaomi-dark);
+            color: var(--xiaomi-white);
+        }
+
+        .future-outlook .section-title {
+            color: var(--xiaomi-white);
+        }
+
+        .future-outlook .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 4rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-year {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--xiaomi-orange);
+            min-width: 150px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 3px solid var(--xiaomi-orange);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .timeline-content li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .timeline-content li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--xiaomi-orange);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--xiaomi-gradient);
+            color: var(--xiaomi-white);
+            text-align: center;
+            padding: 6rem 5%;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--xiaomi-white);
+            color: var(--xiaomi-orange);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--xiaomi-dark);
+            color: var(--xiaomi-white);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero h1 .highlight {
+                font-size: 3rem;
+            }
+
+            .hero .stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Product Showcase */
+        .product-showcase {
+            background: var(--xiaomi-white);
+        }
+
+        .product-category {
+            margin-bottom: 5rem;
+        }
+
+        .product-category h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--xiaomi-dark);
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--xiaomi-orange);
+            display: inline-block;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: var(--xiaomi-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(255, 105, 0, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 280px;
+            background: #f8f8f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--xiaomi-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--xiaomi-orange);
+            margin-bottom: 1rem;
+        }
+
+        .product-price .old-price {
+            font-size: 1rem;
+            color: #999;
+            text-decoration: line-through;
+            font-weight: 400;
+            margin-left: 0.5rem;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .product-features li {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .product-features li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--xiaomi-orange);
+            font-weight: 900;
+        }
+
+        /* Innovation Product Section */
+        .innovation-product {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: var(--xiaomi-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .innovation-product::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, rgba(255, 105, 0, 0.1) 0%, transparent 70%);
+            animation: pulse 10s ease-in-out infinite;
+        }
+
+        .innovation-product .section-title {
+            color: var(--xiaomi-white);
+        }
+
+        .innovation-product .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .innovation-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+            align-items: center;
+        }
+
+        .innovation-visual {
+            position: relative;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 105, 0, 0.3);
+        }
+
+        .innovation-visual img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+        }
+
+        .innovation-badge {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: var(--xiaomi-gradient);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 20px rgba(255, 105, 0, 0.4);
+        }
+
+        .innovation-content h3 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .innovation-content .tagline {
+            font-size: 1.3rem;
+            color: var(--xiaomi-orange);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .innovation-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .innovation-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .innovation-stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 105, 0, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 105, 0, 0.3);
+        }
+
+        .innovation-stat .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--xiaomi-orange);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .innovation-stat .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .innovation-features {
+            margin-top: 4rem;
+        }
+
+        .innovation-features h4 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 105, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--xiaomi-orange);
+            box-shadow: 0 12px 40px rgba(255, 105, 0, 0.3);
+        }
+
+        .feature-item .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--xiaomi-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-item h5 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item p {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .market-potential {
+            margin-top: 5rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+        }
+
+        .market-potential h4 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .potential-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .potential-chart {
+            background: var(--xiaomi-white);
+            padding: 2rem;
+            border-radius: 16px;
+            max-height: 450px;
+        }
+
+        .potential-chart canvas {
+            max-height: 350px !important;
+        }
+
+        .why-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .why-item {
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .why-item .why-number {
+            min-width: 40px;
+            height: 40px;
+            background: var(--xiaomi-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .why-item .why-content h5 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .why-item .why-content p {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        @media (max-width: 968px) {
+            .innovation-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .potential-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .innovation-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <img src="/Users/justin/Downloads/Xiaomi-logo.png.webp" alt="Xiaomi Logo">
+                <span>企業調查報告</span>
+            </div>
+            <ul>
+                <li><a href="#executive-summary">執行摘要</a></li>
+                <li><a href="#business">業務分析</a></li>
+                <li><a href="#products">產品線</a></li>
+                <li><a href="#financial">財務表現</a></li>
+                <li><a href="#innovation">創新產品</a></li>
+                <li><a href="#future">未來展望</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <h1>
+                小米集團
+                <span class="highlight">Q3 分析報告</span>
+            </h1>
+            <div class="slogan" data-aos="fade-up" data-aos-delay="50" style="margin: 2.5rem 0; text-align: center;">
+                <p style="font-size: 1.5rem; font-weight: 300; color: #333; margin: 0; letter-spacing: 8px; position: relative; display: inline-block;">
+                    相信自己<span style="color: var(--xiaomi-orange); font-weight: 600;">，</span>一往無前
+                    <span style="position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 60px; height: 2px; background: var(--xiaomi-orange);"></span>
+                </p>
+            </div>
+            <p>Xiaomi Corporation Comprehensive Research & Strategic Analysis</p>
+
+            <div class="stats">
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                    <span class="stat-number">¥3,659億</span>
+                    <span class="stat-label">2024年總營收</span>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                    <span class="stat-number">+35%</span>
+                    <span class="stat-label">年增長率</span>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                    <span class="stat-number">#3</span>
+                    <span class="stat-label">全球手機市佔率</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">↓ 向下滾動探索更多</div>
+    </section>
+
+    <!-- Executive Summary -->
+    <section id="executive-summary" class="executive-summary">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">執行摘要</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                小米集團在2024年達到<span class="highlight-text">歷史性突破</span>，成功實現「人車家」生態戰略轉型
+            </p>
+
+            <div class="summary-grid">
+                <div class="summary-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3><i class="fas fa-mobile-alt" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>智能手機</h3>
+                    <span class="number">¥1,918億</span>
+                    <p>全球出貨量1.685億台，全球排名第三，市佔率13.8%。在中國、歐洲、東南亞等多個市場位居前二。</p>
+                </div>
+
+                <div class="summary-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3><i class="fas fa-home" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>AIoT生態</h3>
+                    <span class="number">9.437億台</span>
+                    <p>全球最大IoT生態系統，連接設備達9.437億台，2024年營收首次突破1,000億元。</p>
+                </div>
+
+                <div class="summary-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3><i class="fas fa-car" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>智能電動車</h3>
+                    <span class="number">13.7萬輛</span>
+                    <p>最高潛力產品線，2024年交付13.69萬輛，2025年目標35萬輛，複合年增長率83%。</p>
+                </div>
+
+                <div class="summary-card" data-aos="fade-up" data-aos-delay="400">
+                    <h3><i class="fas fa-chart-line" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>調整後淨利潤</h3>
+                    <span class="number">¥272億</span>
+                    <p>增長41.3%，創歷史新高。互聯網服務毛利率達76.6%，為硬件業務提供利潤支撐。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Segments -->
+    <section id="business" class="business-segments">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">業務分部深度分析</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                四大業務板塊協同發展，構建<span class="highlight-text">「人車家」</span>生態閉環
+            </p>
+
+            <div class="segment-grid">
+                <div class="segment-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="segment-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>智能手機業務</h3>
+                    <p><strong>營收：¥1,918億（52.4%）</strong></p>
+                    <p>毛利率：12.6%</p>
+                    <p>全球市佔率：13.8%（第三名）</p>
+                    <p>平均售價：¥1,211（歷史新高）</p>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li><i class="fas fa-check" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>中國市場Q1 2025重返第一</li>
+                        <li><i class="fas fa-check" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>歐洲Q2 2025超越Apple</li>
+                        <li><i class="fas fa-check" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>東南亞重奪第一名</li>
+                    </ul>
+                </div>
+
+                <div class="segment-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="segment-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>AIoT與智能家居</h3>
+                    <p><strong>營收：¥1,041億（28.5%）</strong></p>
+                    <p>毛利率：20.3%</p>
+                    <p>連接設備：9.437億台</p>
+                    <p>年增長率：30%</p>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li><i class="fas fa-check" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>全球最大IoT平台</li>
+                        <li><i class="fas fa-check" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>智能家電銷量創新高</li>
+                        <li><i class="fas fa-check" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>高毛利收入來源</li>
+                    </ul>
+                </div>
+
+                <div class="segment-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="segment-icon"><i class="fas fa-globe"></i></div>
+                    <h3>互聯網服務</h3>
+                    <p><strong>營收：¥328億（9%）</strong></p>
+                    <p>毛利率：76.6%（超高）</p>
+                    <p>全球活躍用戶：6.86億</p>
+                    <p>年增長率：18.5%</p>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li><i class="fas fa-check" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>廣告收入主導</li>
+                        <li><i class="fas fa-check" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>遊戲分發與訂閱</li>
+                        <li><i class="fas fa-check" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>彌補硬件低利潤</li>
+                    </ul>
+                </div>
+
+                <div class="segment-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="segment-icon"><i class="fas fa-car"></i></div>
+                    <h3>智能電動車 <i class="fas fa-star" style="color: #FFD700; font-size: 0.9rem;"></i></h3>
+                    <p><strong>營收：¥328億（9%）</strong></p>
+                    <p>毛利率：20.4%（Q4）</p>
+                    <p>交付量：136,854輛</p>
+                    <p>平均售價：¥238,650</p>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li><i class="fas fa-check" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>最高潛力產品線</li>
+                        <li><i class="fas fa-check" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>2025年目標35萬輛</li>
+                        <li><i class="fas fa-check" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>預計Q4實現季度盈利</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SWOT Analysis -->
+    <section class="swot-analysis" style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 5rem 0;">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">SWOT 策略分析</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                全面評估小米集團的優勢、劣勢、機會與威脅
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 3rem;">
+                <!-- Strengths -->
+                <div class="swot-card" data-aos="fade-up" data-aos-delay="100" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 2.5rem; border-radius: 16px; color: white;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                        <i class="fas fa-trophy" style="font-size: 2.5rem; margin-right: 1rem;"></i>
+                        <h3 style="font-size: 2rem; margin: 0;">優勢 Strengths</h3>
+                    </div>
+                    <ul style="list-style: none; padding: 0; line-height: 2;">
+                        <li><i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>全球第三大智能手機品牌，市佔率 13.8%</li>
+                        <li><i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>全球最大 IoT 平台，9.437 億連接設備</li>
+                        <li><i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>「人車家」全生態閉環優勢</li>
+                        <li><i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>高性價比品牌形象深入人心</li>
+                        <li><i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>強大的供應鏈管理與成本控制</li>
+                        <li><i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>澎湃自研晶片技術儲備</li>
+                    </ul>
+                </div>
+
+                <!-- Weaknesses -->
+                <div class="swot-card" data-aos="fade-up" data-aos-delay="200" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); padding: 2.5rem; border-radius: 16px; color: white;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; margin-right: 1rem;"></i>
+                        <h3 style="font-size: 2rem; margin: 0;">劣勢 Weaknesses</h3>
+                    </div>
+                    <ul style="list-style: none; padding: 0; line-height: 2;">
+                        <li><i class="fas fa-times-circle" style="margin-right: 0.5rem;"></i>手機業務毛利率僅 12.6%，低於競爭對手</li>
+                        <li><i class="fas fa-times-circle" style="margin-right: 0.5rem;"></i>高端市場品牌認知不足</li>
+                        <li><i class="fas fa-times-circle" style="margin-right: 0.5rem;"></i>電動車業務尚未盈利</li>
+                        <li><i class="fas fa-times-circle" style="margin-right: 0.5rem;"></i>核心晶片依賴外部供應商</li>
+                        <li><i class="fas fa-times-circle" style="margin-right: 0.5rem;"></i>國際市場受地緣政治影響</li>
+                        <li><i class="fas fa-times-circle" style="margin-right: 0.5rem;"></i>研發投入占比低於蘋果、華為</li>
+                    </ul>
+                </div>
+
+                <!-- Opportunities -->
+                <div class="swot-card" data-aos="fade-up" data-aos-delay="300" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 2.5rem; border-radius: 16px; color: white;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                        <i class="fas fa-lightbulb" style="font-size: 2.5rem; margin-right: 1rem;"></i>
+                        <h3 style="font-size: 2rem; margin: 0;">機會 Opportunities</h3>
+                    </div>
+                    <ul style="list-style: none; padding: 0; line-height: 2;">
+                        <li><i class="fas fa-arrow-up" style="margin-right: 0.5rem;"></i>AI 手機市場爆發性增長</li>
+                        <li><i class="fas fa-arrow-up" style="margin-right: 0.5rem;"></i>中國電動車市場年增長 30%+</li>
+                        <li><i class="fas fa-arrow-up" style="margin-right: 0.5rem;"></i>智能家居滲透率持續提升</li>
+                        <li><i class="fas fa-arrow-up" style="margin-right: 0.5rem;"></i>東南亞、印度等新興市場擴張</li>
+                        <li><i class="fas fa-arrow-up" style="margin-right: 0.5rem;"></i>5G/6G 技術升級換機潮</li>
+                        <li><i class="fas fa-arrow-up" style="margin-right: 0.5rem;"></i>跨境電商與 DTC 銷售模式</li>
+                    </ul>
+                </div>
+
+                <!-- Threats -->
+                <div class="swot-card" data-aos="fade-up" data-aos-delay="400" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 2.5rem; border-radius: 16px; color: white;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                        <i class="fas fa-shield-alt" style="font-size: 2.5rem; margin-right: 1rem;"></i>
+                        <h3 style="font-size: 2rem; margin: 0;">威脅 Threats</h3>
+                    </div>
+                    <ul style="list-style: none; padding: 0; line-height: 2;">
+                        <li><i class="fas fa-minus-circle" style="margin-right: 0.5rem;"></i>華為強勢回歸搶佔市場份額</li>
+                        <li><i class="fas fa-minus-circle" style="margin-right: 0.5rem;"></i>蘋果、三星高端市場壟斷</li>
+                        <li><i class="fas fa-minus-circle" style="margin-right: 0.5rem;"></i>電動車市場競爭白熱化（特斯拉、比亞迪）</li>
+                        <li><i class="fas fa-minus-circle" style="margin-right: 0.5rem;"></i>全球經濟下行消費需求疲軟</li>
+                        <li><i class="fas fa-minus-circle" style="margin-right: 0.5rem;"></i>美國制裁與技術封鎖風險</li>
+                        <li><i class="fas fa-minus-circle" style="margin-right: 0.5rem;"></i>原材料價格波動影響成本</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Analysis -->
+    <section class="market-analysis" style="background: white; padding: 5rem 0;">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">市場環境分析</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                深入剖析智能手機與電動車市場現狀與趨勢
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;">
+                <!-- Smartphone Market -->
+                <div class="chart-container" data-aos="fade-up" data-aos-delay="200" style="background: var(--xiaomi-white); padding: 2rem; border-radius: 16px;">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; color: #333;">
+                        <i class="fas fa-mobile-alt" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>
+                        全球智能手機市場份額 (2024 Q3)
+                    </h3>
+                    <div style="height: 350px; position: relative;">
+                        <canvas id="smartphoneMarketChart"></canvas>
+                    </div>
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                        <p style="margin: 0; color: #666; line-height: 1.8;">
+                            <i class="fas fa-info-circle" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>
+                            小米以 13.8% 市佔率位居全球第三，在中國 Q1 2025 重返第一，歐洲 Q2 2025 超越 Apple
+                        </p>
+                    </div>
+                </div>
+
+                <!-- EV Market -->
+                <div class="chart-container" data-aos="fade-up" data-aos-delay="300" style="background: var(--xiaomi-white); padding: 2rem; border-radius: 16px;">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; color: #333;">
+                        <i class="fas fa-car" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>
+                        中國電動車市場份額 (2024)
+                    </h3>
+                    <div style="height: 350px; position: relative;">
+                        <canvas id="evMarketChart"></canvas>
+                    </div>
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                        <p style="margin: 0; color: #666; line-height: 1.8;">
+                            <i class="fas fa-info-circle" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>
+                            小米 SU7 上市首年交付 13.7 萬輛，2025 年目標 35 萬輛，挑戰比亞迪與特斯拉
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Trends -->
+            <div style="margin-top: 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+                <div data-aos="fade-up" data-aos-delay="100" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 16px; color: white; text-align: center;">
+                    <i class="fas fa-brain" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 1rem;">AI 手機趨勢</h4>
+                    <p style="font-size: 2.5rem; font-weight: 700; margin: 1rem 0;">45%</p>
+                    <p style="margin: 0; opacity: 0.9;">預計 2025 年 AI 手機滲透率</p>
+                </div>
+
+                <div data-aos="fade-up" data-aos-delay="200" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 2rem; border-radius: 16px; color: white; text-align: center;">
+                    <i class="fas fa-charging-station" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 1rem;">新能源車滲透</h4>
+                    <p style="font-size: 2.5rem; font-weight: 700; margin: 1rem 0;">52%</p>
+                    <p style="margin: 0; opacity: 0.9;">2024 年中國新能源車滲透率</p>
+                </div>
+
+                <div data-aos="fade-up" data-aos-delay="300" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 2rem; border-radius: 16px; color: white; text-align: center;">
+                    <i class="fas fa-home" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 1rem;">智能家居市場</h4>
+                    <p style="font-size: 2.5rem; font-weight: 700; margin: 1rem 0;">$2,800億</p>
+                    <p style="margin: 0; opacity: 0.9;">2027 年全球市場規模預測</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitive Analysis -->
+    <section class="competitive-analysis" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 5rem 0;">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">競爭對手分析</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                與主要競爭對手的全方位比較
+            </p>
+
+            <!-- Comparison Table -->
+            <div class="comparison-table" data-aos="fade-up" data-aos-delay="200" style="margin-top: 3rem; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: linear-gradient(135deg, var(--xiaomi-orange) 0%, #ff8534 100%); color: white;">
+                            <th style="padding: 1.5rem; text-align: left; font-size: 1.2rem;">指標</th>
+                            <th style="padding: 1.5rem; text-align: center; font-size: 1.2rem;">
+                                <i class="fas fa-mobile-alt"></i> 小米
+                            </th>
+                            <th style="padding: 1.5rem; text-align: center; font-size: 1.2rem;">
+                                <i class="fab fa-apple"></i> Apple
+                            </th>
+                            <th style="padding: 1.5rem; text-align: center; font-size: 1.2rem;">
+                                <i class="fas fa-mobile"></i> 三星
+                            </th>
+                            <th style="padding: 1.5rem; text-align: center; font-size: 1.2rem;">
+                                <i class="fas fa-signal"></i> 華為
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #e9ecef;">
+                            <td style="padding: 1.5rem; font-weight: 600;">2024 年營收</td>
+                            <td style="padding: 1.5rem; text-align: center;">¥3,659 億</td>
+                            <td style="padding: 1.5rem; text-align: center;">$3,830 億美元</td>
+                            <td style="padding: 1.5rem; text-align: center;">$2,340 億美元</td>
+                            <td style="padding: 1.5rem; text-align: center;">¥7,000 億</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e9ecef; background: #f8f9fa;">
+                            <td style="padding: 1.5rem; font-weight: 600;">全球市佔率</td>
+                            <td style="padding: 1.5rem; text-align: center;"><span style="color: var(--xiaomi-orange); font-weight: 700;">13.8%</span></td>
+                            <td style="padding: 1.5rem; text-align: center;">18.2%</td>
+                            <td style="padding: 1.5rem; text-align: center;">19.5%</td>
+                            <td style="padding: 1.5rem; text-align: center;">11.3%</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e9ecef;">
+                            <td style="padding: 1.5rem; font-weight: 600;">手機毛利率</td>
+                            <td style="padding: 1.5rem; text-align: center;">12.6%</td>
+                            <td style="padding: 1.5rem; text-align: center;"><span style="color: #10b981; font-weight: 700;">42.8%</span></td>
+                            <td style="padding: 1.5rem; text-align: center;">28.4%</td>
+                            <td style="padding: 1.5rem; text-align: center;">35.2%</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e9ecef; background: #f8f9fa;">
+                            <td style="padding: 1.5rem; font-weight: 600;">研發投入占比</td>
+                            <td style="padding: 1.5rem; text-align: center;">3.8%</td>
+                            <td style="padding: 1.5rem; text-align: center;">7.8%</td>
+                            <td style="padding: 1.5rem; text-align: center;">9.2%</td>
+                            <td style="padding: 1.5rem; text-align: center;"><span style="color: #10b981; font-weight: 700;">15.3%</span></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e9ecef;">
+                            <td style="padding: 1.5rem; font-weight: 600;">IoT 設備數</td>
+                            <td style="padding: 1.5rem; text-align: center;"><span style="color: var(--xiaomi-orange); font-weight: 700;">9.4 億台</span></td>
+                            <td style="padding: 1.5rem; text-align: center;">2.0 億台</td>
+                            <td style="padding: 1.5rem; text-align: center;">2.8 億台</td>
+                            <td style="padding: 1.5rem; text-align: center;">4.5 億台</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e9ecef; background: #f8f9fa;">
+                            <td style="padding: 1.5rem; font-weight: 600;">電動車業務</td>
+                            <td style="padding: 1.5rem; text-align: center;">13.7 萬輛<br><small>(2024年)</small></td>
+                            <td style="padding: 1.5rem; text-align: center;">-</td>
+                            <td style="padding: 1.5rem; text-align: center;">-</td>
+                            <td style="padding: 1.5rem; text-align: center;">合作模式</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 1.5rem; font-weight: 600;">核心優勢</td>
+                            <td style="padding: 1.5rem; text-align: center;"><span style="color: var(--xiaomi-orange);">性價比+生態</span></td>
+                            <td style="padding: 1.5rem; text-align: center;">品牌+利潤</td>
+                            <td style="padding: 1.5rem; text-align: center;">技術+供應鏈</td>
+                            <td style="padding: 1.5rem; text-align: center;">5G+自研晶片</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Competitive Positioning Chart -->
+            <div class="chart-container" data-aos="fade-up" data-aos-delay="300" style="margin-top: 3rem; background: white; padding: 2.5rem; border-radius: 16px;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem; color: #333; text-align: center;">
+                    <i class="fas fa-chart-scatter" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>
+                    品牌定位與市場策略對比
+                </h3>
+                <div style="height: 400px; position: relative;">
+                    <canvas id="competitivePositionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase -->
+    <section id="products" class="product-showcase">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">完整產品線展示</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                涵蓋<span class="highlight-text">手機、智能家居、AIoT、穿戴裝置</span>等全方位產品生態系統
+            </p>
+
+            <!-- 智能手機 -->
+            <div class="product-category" data-aos="fade-up" data-aos-delay="200">
+                <h3><i class="fas fa-mobile-alt" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>智能手機系列</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://i02.appmifile.com/388_item_tw/10/01/2025/6362dd34faea6ef709721380b6f31ae6.png" alt="REDMI Note 14">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">REDMI Note 14</div>
+                            <div class="product-price">
+                                從 NT$3,999 起
+                                <span class="old-price">NT$4,999</span>
+                            </div>
+                            <ul class="product-features">
+                                <li>6.67吋 AMOLED 顯示螢幕</li>
+                                <li>120Hz 高刷新率</li>
+                                <li>5000mAh 大電池</li>
+                                <li>45W 快充技術</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://i02.appmifile.com/516_item_tw/26/10/2025/41cd66ef5050d0b60ea8298a41fdb3ea.png" alt="POCO M7 Pro 5G">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">POCO M7 Pro 5G</div>
+                            <div class="product-price">
+                                從 NT$4,999 起
+                                <span class="old-price">NT$5,999</span>
+                            </div>
+                            <ul class="product-features">
+                                <li>5G 超高速連網</li>
+                                <li>MediaTek 處理器</li>
+                                <li>50MP AI 相機</li>
+                                <li>極致性價比</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://i02.appmifile.com/268_item_tw/30/07/2025/6a8eebe22d59cc1e33b7d14d1d27472d.png" alt="Xiaomi 14 Ultra">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Xiaomi 14 Ultra</div>
+                            <div class="product-price">NT$39,999</div>
+                            <ul class="product-features">
+                                <li>徠卡專業影像系統</li>
+                                <li>高通 8 Gen 3 處理器</li>
+                                <li>2K AMOLED 曲面螢幕</li>
+                                <li>120W 極速快充</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://i02.appmifile.com/746_item_tw/10/09/2025/7a8576374c39c9228351605726515b44.png?thumb=1&w=440&f=webp&q=85" alt="Xiaomi 15">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Xiaomi 15 系列</div>
+                            <div class="product-price">從 NT$26,999 起</div>
+                            <ul class="product-features">
+                                <li>高通 8 Elite 旗艦芯片</li>
+                                <li>徠卡光學鏡頭</li>
+                                <li>衛星通訊功能</li>
+                                <li>HyperOS 2.0 系統</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 智能家居 -->
+            <div class="product-category" data-aos="fade-up" data-aos-delay="300">
+                <h3><i class="fas fa-home" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>智能家居系列</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://i02.appmifile.com/439_item_tw/27/12/2024/bfa441d5ec6d98d0662845326906b1ff.png" alt="Xiaomi 掃拖機器人 X20 Max">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Xiaomi 掃拖機器人 X20 Max</div>
+                            <div class="product-price">
+                                NT$12,499
+                                <span class="old-price">NT$15,995</span>
+                            </div>
+                            <ul class="product-features">
+                                <li>8000Pa 超強吸力</li>
+                                <li>自動集塵與清洗拖布</li>
+                                <li>AI 避障技術</li>
+                                <li>全自動維護系統</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://i02.appmifile.com/687_item_tw/26/08/2025/89f81620760d04c4a7b7f44288ba113a.png?thumb=1&w=440&f=webp&q=85" alt="Xiaomi 智慧顯示器">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Xiaomi 智慧顯示器 A Pro 2026 43吋</div>
+                            <div class="product-price">
+                                NT$8,999
+                                <span class="old-price">NT$9,999</span>
+                            </div>
+                            <ul class="product-features">
+                                <li>4K QLED 量子點顯示</li>
+                                <li>120Hz 刷新率</li>
+                                <li>杜比視界 & 全景聲</li>
+                                <li>小愛語音控制</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://i02.appmifile.com/813_operator_sg/14/10/2021/36ed308fd5b426290a802816d12e0763.png" alt="Xiaomi 空氣清淨機">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Xiaomi 空氣清淨機 4 Pro</div>
+                            <div class="product-price">NT$7,995</div>
+                            <ul class="product-features">
+                                <li>CADR 500m³/h</li>
+                                <li>H13 HEPA 濾網</li>
+                                <li>智能空氣監測</li>
+                                <li>米家 App 遠端控制</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1677837257.50025372.png?thumb=1&w=440&f=webp&q=85" alt="Xiaomi 智能攝影機">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Xiaomi 智慧攝影機 C500 雙攝版</div>
+                            <div class="product-price">NT$1,699</div>
+                            <ul class="product-features">
+                                <li>2K 超清畫質</li>
+                                <li>360° 全景監控</li>
+                                <li>AI 人形偵測</li>
+                                <li>夜視功能</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 智能穿戴 -->
+            <div class="product-category" data-aos="fade-up" data-aos-delay="400">
+                <h3><i class="fas fa-watch" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>智能穿戴系列</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://i02.appmifile.com/249_item_tw/23/06/2025/fd4ee9fdbf26f976d66998df8466306c.png?thumb=1&w=440&f=webp&q=85" alt="Xiaomi 手環 10">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Xiaomi 手環 10</div>
+                            <div class="product-price">NT$1,199</div>
+                            <ul class="product-features">
+                                <li>1.62吋 AMOLED 螢幕</li>
+                                <li>16天超長續航</li>
+                                <li>150+ 運動模式</li>
+                                <li>5ATM 防水</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1664274842.25962776.png?thumb=1&w=440&f=webp&q=85" alt="REDMI Watch 5">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">REDMI Watch 5</div>
+                            <div class="product-price">NT$2,399</div>
+                            <ul class="product-features">
+                                <li>1.96吋大螢幕</li>
+                                <li>24天續航力</li>
+                                <li>健康監測全面</li>
+                                <li>200+ 錶盤主題</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://i02.appmifile.com/597_item_tw/25/10/2024/2a344c989f6f4408c1dce860227f59a8.png?thumb=1&w=440&f=webp&q=85" alt="Xiaomi 手環 9 Pro">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Xiaomi 手環 9 Pro</div>
+                            <div class="product-price">NT$1,899</div>
+                            <ul class="product-features">
+                                <li>1.74吋超大螢幕</li>
+                                <li>GPS 獨立定位</li>
+                                <li>21天續航</li>
+                                <li>150種運動模式</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://i02.appmifile.com/357_item_tw/24/07/2024/b0da88c66e33d557a8290c8fe42e00ac.png?thumb=1&w=440&f=webp&q=85" alt="REDMI Buds 6 Pro">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">REDMI Buds 6 Pro</div>
+                            <div class="product-price">NT$1,799</div>
+                            <ul class="product-features">
+                                <li>55dB 主動降噪</li>
+                                <li>Hi-Res Audio 認證</li>
+                                <li>36小時總續航</li>
+                                <li>雙設備連接</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 電動車 -->
+            <div class="product-category" data-aos="fade-up" data-aos-delay="500">
+                <h3><i class="fas fa-car" style="color: var(--xiaomi-orange); margin-right: 0.5rem;"></i>智能電動車系列</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREz67OBIXgSpX8qdqrpLNCaRzBdTtBB2yEiQ&s" alt="Xiaomi SU7 標準版" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Xiaomi SU7 標準版</div>
+                            <div class="product-price">¥215,900 起</div>
+                            <ul class="product-features">
+                                <li>700km CLTC 續航</li>
+                                <li>0-100km/h 5.28秒</li>
+                                <li>小米澎湃智能座艙</li>
+                                <li>HyperOS 車載系統</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://img.technews.tw/wp-content/uploads/2024/07/22104009/su7-ultra.jpeg" alt="Xiaomi SU7 Ultra" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Xiaomi SU7 Ultra</div>
+                            <div class="product-price">¥814,900</div>
+                            <ul class="product-features">
+                                <li>0-100km/h 1.98秒</li>
+                                <li>1548匹馬力</li>
+                                <li>紐北賽道性能</li>
+                                <li>碳纖維套件</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chart Section - Revenue Data -->
+    <section id="financial" class="chart-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">財務表現與數據分析</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                持續強勁的增長動能與盈利能力提升
+            </p>
+
+            <!-- Quarterly Revenue Chart -->
+            <div class="chart-container" data-aos="fade-up" data-aos-delay="200">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">季度營收增長趨勢 (Q1 2024 - Q2 2025)</h3>
+                <p style="color: #666; margin-bottom: 2rem;">Q2 2025營收達¥1,160億，年增長率30.5%</p>
+                <div class="chart-wrapper">
+                    <canvas id="quarterlyRevenueChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Business Segment Revenue Chart -->
+            <div class="chart-container" data-aos="fade-up" data-aos-delay="300">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">2024年業務分部營收結構</h3>
+                <p style="color: #666; margin-bottom: 2rem;">智能手機佔比52.4%，電動車業務貢獻9%</p>
+                <div class="chart-wrapper">
+                    <canvas id="businessSegmentChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Future Projection Chart -->
+            <div class="chart-container" data-aos="fade-up" data-aos-delay="400">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">2024-2027年營收與利潤預測</h3>
+                <p style="color: #666; margin-bottom: 2rem;">預計2027年營收達¥7,179億，淨利潤¥664億</p>
+                <div class="chart-wrapper">
+                    <canvas id="futureProjectionChart"></canvas>
+                </div>
+            </div>
+
+            <!-- EV Delivery Growth Chart -->
+            <div class="chart-container" data-aos="fade-up" data-aos-delay="500">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">電動車交付量增長軌跡 (2024-2027預測)</h3>
+                <p style="color: #666; margin-bottom: 2rem;">複合年增長率83%，2027年目標80萬輛</p>
+                <div class="chart-wrapper">
+                    <canvas id="evDeliveryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Market Share Chart -->
+            <div class="chart-container" data-aos="fade-up" data-aos-delay="600">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">全球智能手機市場份額 (Q2 2025)</h3>
+                <p style="color: #666; margin-bottom: 2rem;">小米以14.4%市佔率位居全球第三</p>
+                <div class="chart-wrapper">
+                    <canvas id="marketShareChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Product Launch -->
+    <section id="innovation" class="innovation-product">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up"><i class="fas fa-rocket" style="color: var(--xiaomi-orange); margin-right: 1rem;"></i>新一季創新產品</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                <span style="background: linear-gradient(90deg, #FF6900, #FF0080); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.3rem; font-weight: 700;">重新定義人類與科技的連接方式 · 2026 革命性發布</span>
+            </p>
+
+            <div class="innovation-hero">
+                <div class="innovation-visual" data-aos="fade-right" data-aos-delay="200">
+                    <div class="innovation-badge">2026 NEW</div>
+                    <img src="https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202501201545_innovation_hub_concept.png" alt="Xiaomi AI Home Hub Pro" style="width: 100%; background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%); padding: 3rem; border-radius: 20px;">
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <svg viewBox="0 0 400 300" style="width: 100%; height: auto;">
+                            <!-- 主體設備 -->
+                            <defs>
+                                <linearGradient id="deviceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#FF6900;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#FF8F00;stop-opacity:1" />
+                                </linearGradient>
+                                <filter id="shadow">
+                                    <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.3"/>
+                                </filter>
+                            </defs>
+
+                            <!-- 設備主體 -->
+                            <rect x="120" y="80" width="160" height="140" rx="20" fill="url(#deviceGrad)" filter="url(#shadow)"/>
+                            <circle cx="200" cy="150" r="40" fill="rgba(255,255,255,0.3)"/>
+                            <circle cx="200" cy="150" r="30" fill="rgba(255,255,255,0.5)"/>
+                            <circle cx="200" cy="150" r="8" fill="#fff"/>
+
+                            <!-- 螢幕顯示 -->
+                            <rect x="140" y="95" width="120" height="80" rx="8" fill="#1a1a1a" opacity="0.8"/>
+                            <text x="200" y="125" text-anchor="middle" fill="#FF6900" font-size="14" font-weight="bold">AI HUB</text>
+                            <text x="200" y="145" text-anchor="middle" fill="#fff" font-size="10">24°C</text>
+                            <text x="200" y="160" text-anchor="middle" fill="#ccc" font-size="8">9.4億設備已連接</text>
+
+                            <!-- 連接線條 -->
+                            <line x1="80" y1="120" x2="120" y2="140" stroke="#FF6900" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+                            <line x1="320" y1="120" x2="280" y2="140" stroke="#FF6900" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+                            <line x1="200" y1="50" x2="200" y2="80" stroke="#FF6900" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+                            <line x1="200" y1="220" x2="200" y2="250" stroke="#FF6900" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+
+                            <!-- 連接圖標 -->
+                            <circle cx="80" cy="120" r="20" fill="#333"/>
+                            <text x="80" y="127" text-anchor="middle" font-size="20">📱</text>
+
+                            <circle cx="320" cy="120" r="20" fill="#333"/>
+                            <text x="320" y="127" text-anchor="middle" font-size="20">🚗</text>
+
+                            <circle cx="200" cy="50" r="20" fill="#333"/>
+                            <text x="200" y="57" text-anchor="middle" font-size="20">🏠</text>
+
+                            <circle cx="200" cy="250" r="20" fill="#333"/>
+                            <text x="200" y="257" text-anchor="middle" font-size="20">❤️</text>
+
+                            <!-- 標題 -->
+                            <text x="200" y="290" text-anchor="middle" fill="#333" font-size="16" font-weight="bold">Xiaomi AI Home Hub Pro</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="innovation-content" data-aos="fade-left" data-aos-delay="300">
+                    <div style="display: inline-block; background: linear-gradient(135deg, #FF6900 0%, #8B00FF 100%); padding: 0.5rem 1.5rem; border-radius: 50px; margin-bottom: 1rem; box-shadow: 0 0 30px rgba(255,105,0,0.5);">
+                        <span style="color: white; font-weight: 700; font-size: 0.9rem; letter-spacing: 3px;"><i class="fas fa-rocket"></i> PROJECT IMMORTAL</span>
+                    </div>
+                    <h3 style="font-size: 3.5rem; line-height: 1.1; margin: 1rem 0; font-weight: 900;">Xiaomi NeuroLens<br><span style="background: linear-gradient(135deg, #FF6900, #FF0080, #8B00FF, #00D4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">神經透鏡</span></h3>
+                    <p class="tagline" style="font-size: 1.5rem; color: #FF6900; font-weight: 700; margin-bottom: 2rem; text-shadow: 0 0 20px rgba(255,105,0,0.3);">全球首款 AR × 腦機介面 × AI 意識擴展系統</p>
+
+                    <div style="background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(139,0,255,0.2) 100%); padding: 2.5rem; border-radius: 20px; border: 2px solid #FF6900; margin-bottom: 2rem; box-shadow: 0 0 40px rgba(255,105,0,0.4);">
+                        <p style="font-size: 1.2rem; line-height: 2; margin: 0; color: white;">
+                            <strong style="color: #FF6900; font-size: 1.6rem; display: block; margin-bottom: 1rem;"><i class="fas fa-brain"></i> 這不是眼鏡，而是你的「第二大腦」</strong>
+                            一副重量僅 <strong style="color: #00D4FF;">28 克</strong>的智能隱形眼鏡，內建 <strong style="color: #00D4FF;">2000 萬畫素微型投影器</strong> + <strong style="color: #00D4FF;">腦電波讀取晶片</strong>。<br><br>
+
+                            <strong style="color: #8B00FF;"><i class="fas fa-eye"></i> 你只需要「想」，AI 就會執行：</strong><br>
+                            想拍照？眨眼兩下完成。想翻譯？看著文字自動顯示。想導航？視野中直接浮現 3D 箭頭。<br><br>
+
+                            <strong style="color: #FF0080;"><i class="fas fa-globe"></i> 將整個互聯網投影在你的視網膜上</strong><br>
+                            不需要手機、不需要螢幕、不需要任何物理設備。你的視野就是無限大的 8K 螢幕。
+                        </p>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #FF6900 0%, #FF0080 50%, #8B00FF 100%); color: white; padding: 2.5rem; border-radius: 20px; margin-bottom: 2rem; box-shadow: 0 10px 50px rgba(255,105,0,0.6);">
+                        <h4 style="font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: 900; text-shadow: 0 2px 10px rgba(0,0,0,0.5);"><i class="fas fa-bolt"></i> 六大顛覆性技術</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; line-height: 2.2;">
+                            <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 10px;">
+                                <strong style="font-size: 1.1rem;"><i class="fas fa-brain"></i> 意念控制</strong><br>
+                                <span style="opacity: 0.95; font-size: 0.95rem;">透過腦電波感應器，眨眼、眼神移動即可操作一切</span>
+                            </div>
+                            <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 10px;">
+                                <strong style="font-size: 1.1rem;"><i class="fas fa-globe"></i> 即時翻譯</strong><br>
+                                <span style="opacity: 0.95; font-size: 0.95rem;">看到任何語言自動翻譯顯示，支援 128 種語言</span>
+                            </div>
+                            <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 10px;">
+                                <strong style="font-size: 1.1rem;"><i class="fas fa-camera"></i> 永不錯過的瞬間</strong><br>
+                                <span style="opacity: 0.95; font-size: 0.95rem;">AI 自動捕捉精彩畫面，永久儲存你的第一視角人生</span>
+                            </div>
+                            <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 10px;">
+                                <strong style="font-size: 1.1rem;"><i class="fas fa-search-plus"></i> 超級視力</strong><br>
+                                <span style="opacity: 0.95; font-size: 0.95rem;">100x 數位變焦 + 夜視模式 + X-Ray 透視（熱成像）</span>
+                            </div>
+                            <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 10px;">
+                                <strong style="font-size: 1.1rem;"><i class="fas fa-gamepad"></i> 虛實融合</strong><br>
+                                <span style="opacity: 0.95; font-size: 0.95rem;">將遊戲、電影、工作投影到真實世界任何平面</span>
+                            </div>
+                            <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 10px;">
+                                <strong style="font-size: 1.1rem;"><i class="fas fa-heartbeat"></i> 健康監測</strong><br>
+                                <span style="opacity: 0.95; font-size: 0.95rem;">眼球血管掃描，即時監測血糖、血壓、疲勞度</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="innovation-stats" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
+                        <div class="innovation-stat" data-aos="zoom-in" data-aos-delay="400" style="background: linear-gradient(135deg, #000, #FF6900); color: white; padding: 1.5rem; border-radius: 12px; border: 2px solid #FF6900;">
+                            <span class="stat-value" style="font-size: 2.5rem; font-weight: 900;">28g</span>
+                            <span class="stat-label" style="opacity: 0.9;">輕若無物</span>
+                        </div>
+                        <div class="innovation-stat" data-aos="zoom-in" data-aos-delay="500" style="background: linear-gradient(135deg, #000, #00D4FF); color: white; padding: 1.5rem; border-radius: 12px; border: 2px solid #00D4FF;">
+                            <span class="stat-value" style="font-size: 2.5rem; font-weight: 900;">8K</span>
+                            <span class="stat-label" style="opacity: 0.9;">視網膜投影解析度</span>
+                        </div>
+                        <div class="innovation-stat" data-aos="zoom-in" data-aos-delay="600" style="background: linear-gradient(135deg, #000, #8B00FF); color: white; padding: 1.5rem; border-radius: 12px; border: 2px solid #8B00FF;">
+                            <span class="stat-value" style="font-size: 2.5rem; font-weight: 900;">72h</span>
+                            <span class="stat-label" style="opacity: 0.9;">超長續航</span>
+                        </div>
+                        <div class="innovation-stat" data-aos="zoom-in" data-aos-delay="700" style="background: linear-gradient(135deg, #000, #FF0080); color: white; padding: 1.5rem; border-radius: 12px; border: 2px solid #FF0080;">
+                            <span class="stat-value" style="font-size: 2.5rem; font-weight: 900;">128</span>
+                            <span class="stat-label" style="opacity: 0.9;">支援語言數</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255,105,0,0.1); border-left: 4px solid #FF6900; border-radius: 10px;">
+                        <p style="margin: 0; font-size: 1.1rem; color: #333; line-height: 1.8;">
+                            <strong style="color: #FF6900;"><i class="fas fa-dollar-sign"></i> 定價策略：</strong>NeuroLens 標準版 <strong>¥9,999</strong> / Pro 版 <strong>¥14,999</strong><br>
+                            <strong style="color: #FF6900;"><i class="fas fa-calendar-alt"></i> 上市時間：</strong>2026 年 Q2 全球首發<br>
+                            <strong style="color: #FF6900;"><i class="fas fa-bullseye"></i> 目標市場：</strong>預計首年銷售 <strong>500 萬台</strong>，營收突破 <strong>¥600 億</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 應用場景 -->
+            <div class="innovation-features">
+                <h4 data-aos="fade-up" style="font-size: 2.5rem; text-align: center; margin-bottom: 3rem; background: linear-gradient(90deg, #FF6900, #8B00FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"><i class="fas fa-star" style="margin-right: 1rem;"></i>改變世界的應用場景</h4>
+                <div class="feature-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="100" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; padding: 2rem; border-radius: 16px; border: 2px solid #FF6900;">
+                        <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1rem;"><i class="fas fa-globe"></i></div>
+                        <h5 style="color: #FF6900; font-size: 1.4rem; margin-bottom: 1rem;">消滅語言障礙</h5>
+                        <p style="line-height: 1.8; opacity: 0.9;">看到任何語言自動翻譯，讓全球 70 億人都能無障礙交流</p>
+                    </div>
+
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="200" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; padding: 2rem; border-radius: 16px; border: 2px solid #00D4FF;">
+                        <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1rem;"><i class="fas fa-graduation-cap"></i></div>
+                        <h5 style="color: #00D4FF; font-size: 1.4rem; margin-bottom: 1rem;">教育革命</h5>
+                        <p style="line-height: 1.8; opacity: 0.9;">AI 教師隨時浮現，看到任何問題立即解答，學習效率提升 10 倍</p>
+                    </div>
+
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="300" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; padding: 2rem; border-radius: 16px; border: 2px solid #8B00FF;">
+                        <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1rem;"><i class="fas fa-heartbeat"></i></div>
+                        <h5 style="color: #8B00FF; font-size: 1.4rem; margin-bottom: 1rem;">醫療診斷助手</h5>
+                        <p style="line-height: 1.8; opacity: 0.9;">掃描皮膚、眼睛即時檢測疾病，提前發現癌症風險</p>
+                    </div>
+
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="400" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; padding: 2rem; border-radius: 16px; border: 2px solid #FF0080;">
+                        <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1rem;"><i class="fas fa-car"></i></div>
+                        <h5 style="color: #FF0080; font-size: 1.4rem; margin-bottom: 1rem;">駕駛安全守護</h5>
+                        <p style="line-height: 1.8; opacity: 0.9;">夜視模式 + 盲點偵測 + 疲勞警告，事故率降低 85%</p>
+                    </div>
+
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="500" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; padding: 2rem; border-radius: 16px; border: 2px solid #10b981;">
+                        <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1rem;"><i class="fas fa-film"></i></div>
+                        <h5 style="color: #10b981; font-size: 1.4rem; margin-bottom: 1rem;">影視革命</h5>
+                        <p style="line-height: 1.8; opacity: 0.9;">任何平面都是 200 吋螢幕，走到哪電影院跟到哪</p>
+                    </div>
+
+                    <div class="feature-item" data-aos="fade-up" data-aos-delay="600" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; padding: 2rem; border-radius: 16px; border: 2px solid #f59e0b;">
+                        <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1rem;"><i class="fas fa-camera"></i></div>
+                        <h5 style="color: #f59e0b; font-size: 1.4rem; margin-bottom: 1rem;">記憶永存</h5>
+                        <p style="line-height: 1.8; opacity: 0.9;">AI 自動記錄人生重要時刻，建立你的數位記憶庫</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 市場潛力分析 -->
+            <div class="market-potential">
+                <h4 data-aos="fade-up">市場潛力與發展前景</h4>
+
+                <div class="potential-grid">
+                    <div class="potential-chart" data-aos="fade-up" data-aos-delay="100">
+                        <h5 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: #333;">預估市場規模與營收 (2026-2030)</h5>
+                        <div style="height: 320px; position: relative;">
+                            <canvas id="innovationMarketChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="why-grid" data-aos="fade-up" data-aos-delay="200">
+                        <div class="why-item" style="background: linear-gradient(135deg, rgba(255,105,0,0.1), rgba(255,0,128,0.1)); border-left: 4px solid #FF6900; padding: 1.5rem; border-radius: 10px;">
+                            <div class="why-number" style="background: linear-gradient(135deg, #FF6900, #FF0080); color: white;">1</div>
+                            <div class="why-content">
+                                <h5 style="color: #FF6900; font-size: 1.2rem;">AR 眼鏡市場井噴</h5>
+                                <p>全球 AR/VR 市場 2030 年將達 <strong>$2,960 億美元</strong>，CAGR 42.9%。NeuroLens 定位高端，搶佔先機。</p>
+                            </div>
+                        </div>
+
+                        <div class="why-item" style="background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(139,0,255,0.1)); border-left: 4px solid #00D4FF; padding: 1.5rem; border-radius: 10px;">
+                            <div class="why-number" style="background: linear-gradient(135deg, #00D4FF, #0080FF); color: white;">2</div>
+                            <div class="why-content">
+                                <h5 style="color: #00D4FF; font-size: 1.2rem;">腦機介面技術成熟</h5>
+                                <p>Neuralink、Meta 等巨頭投入百億研發，技術已進入商用階段。小米擁有完整供應鏈優勢。</p>
+                            </div>
+                        </div>
+
+                        <div class="why-item" style="background: linear-gradient(135deg, rgba(139,0,255,0.1), rgba(255,0,128,0.1)); border-left: 4px solid #8B00FF; padding: 1.5rem; border-radius: 10px;">
+                            <div class="why-number" style="background: linear-gradient(135deg, #8B00FF, #FF0080); color: white;">3</div>
+                            <div class="why-content">
+                                <h5 style="color: #8B00FF; font-size: 1.2rem;">超高毛利率產品</h5>
+                                <p>定價 ¥9,999-14,999，預估毛利率 <strong>65%</strong>（遠超手機 12.6%），成為利潤核心引擎。</p>
+                            </div>
+                        </div>
+
+                        <div class="why-item" style="background: linear-gradient(135deg, rgba(255,0,128,0.1), rgba(255,105,0,0.1)); border-left: 4px solid #FF0080; padding: 1.5rem; border-radius: 10px;">
+                            <div class="why-number" style="background: linear-gradient(135deg, #FF0080, #FF6900); color: white;">4</div>
+                            <div class="why-content">
+                                <h5 style="color: #FF0080; font-size: 1.2rem;">開創全新品類</h5>
+                                <p>全球首款腦機介面 AR 眼鏡，搶佔「意念控制」市場空白，建立技術壁壘。</p>
+                            </div>
+                        </div>
+
+                        <div class="why-item" style="background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.1)); border-left: 4px solid #10b981; padding: 1.5rem; border-radius: 10px;">
+                            <div class="why-number" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">5</div>
+                            <div class="why-content">
+                                <h5 style="color: #10b981; font-size: 1.2rem;">生態協同效應</h5>
+                                <p>與小米手機、SU7 電動車深度整合，打造「眼睛即入口」的超級生態閉環。</p>
+                            </div>
+                        </div>
+
+                        <div class="why-item" style="background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(217,119,6,0.1)); border-left: 4px solid #f59e0b; padding: 1.5rem; border-radius: 10px;">
+                            <div class="why-number" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white;">6</div>
+                            <div class="why-content">
+                                <h5 style="color: #f59e0b; font-size: 1.2rem;">全球化擴張利器</h5>
+                                <p>支援多語言AI、全球IoT標準，可快速進入歐美市場，預計2027年全球銷量500萬台，營收150億元。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 發展路線圖 -->
+                <div style="margin-top: 4rem;" data-aos="fade-up">
+                    <h5 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; text-align: center;">產品發展路線圖</h5>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+                        <div style="text-align: center; padding: 1.5rem; background: rgba(255, 105, 0, 0.1); border-radius: 12px;">
+                            <div style="font-size: 2rem; font-weight: 900; color: var(--xiaomi-orange); margin-bottom: 0.5rem;">2026 Q2</div>
+                            <div style="font-size: 0.95rem; opacity: 0.9;">中國市場發布<br>目標銷量50萬台</div>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: rgba(255, 105, 0, 0.1); border-radius: 12px;">
+                            <div style="font-size: 2rem; font-weight: 900; color: var(--xiaomi-orange); margin-bottom: 0.5rem;">2026 Q4</div>
+                            <div style="font-size: 0.95rem; opacity: 0.9;">亞太市場擴張<br>累計銷量100萬台</div>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: rgba(255, 105, 0, 0.1); border-radius: 12px;">
+                            <div style="font-size: 2rem; font-weight: 900; color: var(--xiaomi-orange); margin-bottom: 0.5rem;">2027 H1</div>
+                            <div style="font-size: 0.95rem; opacity: 0.9;">進軍歐洲市場<br>推出Pro Max版本</div>
+                        </div>
+                        <div style="text-align: center; padding: 1.5rem; background: rgba(255, 105, 0, 0.1); border-radius: 12px;">
+                            <div style="font-size: 2rem; font-weight: 900; color: var(--xiaomi-orange); margin-bottom: 0.5rem;">2030</div>
+                            <div style="font-size: 0.95rem; opacity: 0.9;">全球2,000萬台<br>營收600億元</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Outlook -->
+    <section id="future" class="future-outlook">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">未來發展方向與戰略計畫</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                2025-2027年戰略路線圖
+            </p>
+
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-content">
+                        <h3>規模化與盈利突破</h3>
+                        <ul>
+                            <li>電動車交付35萬輛，Q4實現季度盈利</li>
+                            <li>歐洲手機市佔率達23%</li>
+                            <li>全球IoT設備突破10億台</li>
+                            <li>AI研發投入75億元，MiMo大模型商業化</li>
+                            <li>第二工廠投產，總產能達30萬輛</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="timeline-year">2026</div>
+                    <div class="timeline-content">
+                        <h3>產品擴張與市場深化</h3>
+                        <ul>
+                            <li>電動車交付55萬輛，實現全年盈利</li>
+                            <li>推出大型SUV（MX11）與增程式SUV（Kunlun）</li>
+                            <li>全球手機市佔率達15%</li>
+                            <li>自研芯片澎湃S2量產</li>
+                            <li>第三工廠開工，年產能達45萬輛</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="timeline-year">2027</div>
+                    <div class="timeline-content">
+                        <h3>全球化與生態成熟</h3>
+                        <ul>
+                            <li>電動車交付80萬輛，進軍歐洲市場</li>
+                            <li>營收達¥7,179億，淨利潤¥664億</li>
+                            <li>挑戰全球第二大智能手機品牌</li>
+                            <li>全球IoT設備達15億台</li>
+                            <li>自動駕駛L3技術商業化</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>報告編製：企業調查專案團隊 | 報告日期：2025年11月15日</p>
+            <p style="margin-top: 1rem;">數據來源：小米集團財報、Bloomberg、IDC、Canalys、Goldman Sachs、JPMorgan等17家投資銀行分析報告</p>
+            <p style="margin-top: 1rem; font-size: 0.8rem;">免責聲明：本報告僅供參考，不構成投資建議。投資有風險，決策需謹慎。</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chart.js default settings
+            Chart.defaults.font.family = "'Noto Sans TC', 'Roboto', sans-serif";
+            Chart.defaults.color = '#333';
+
+            // Quarterly Revenue Chart
+            const quarterlyRevenueCtx = document.getElementById('quarterlyRevenueChart');
+            if (quarterlyRevenueCtx) {
+                new Chart(quarterlyRevenueCtx.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025', 'Q2 2025'],
+                        datasets: [{
+                            label: '季度營收 (億元)',
+                            data: [755, 889, 925, 1090, 1113, 1160],
+                            borderColor: '#FF6900',
+                            backgroundColor: 'rgba(255, 105, 0, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointHoverRadius: 8,
+                            pointBackgroundColor: '#FF6900',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                labels: {
+                                    font: { size: 14, weight: 'bold' },
+                                    padding: 20
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                titleFont: { size: 14 },
+                                bodyFont: { size: 13 },
+                                callbacks: {
+                                    label: function(context) {
+                                        return '營收: ¥' + context.parsed.y + '億元';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '¥' + value + 'b';
+                                    },
+                                    font: { size: 12 }
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    font: { size: 12 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Business Segment Chart
+            const businessSegmentCtx = document.getElementById('businessSegmentChart');
+            if (businessSegmentCtx) {
+                new Chart(businessSegmentCtx.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: ['智能手機', 'AIoT與智能家居', '互聯網服務', '智能電動車'],
+                datasets: [{
+                    data: [1918, 1041, 328, 328],
+                    backgroundColor: [
+                        '#FF6900',
+                        '#FF8F00',
+                        '#FFB340',
+                        '#333333'
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 20
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            font: { size: 14, weight: 'bold' },
+                            padding: 20,
+                            generateLabels: function(chart) {
+                                const data = chart.data;
+                                return data.labels.map((label, i) => {
+                                    const value = data.datasets[0].data[i];
+                                    const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return {
+                                        text: `${label}: ¥${value}億 (${percentage}%)`,
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        hidden: false,
+                                        index: i
+                                    };
+                                });
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        callbacks: {
+                            label: function(context) {
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                return context.label + ': ¥' + context.parsed + '億 (' + percentage + '%)';
+                            }
+                        }
+                    }
+                    }
+                }
+                });
+            }
+
+            // Future Projection Chart
+            const futureProjectionCtx = document.getElementById('futureProjectionChart');
+            if (futureProjectionCtx) {
+                new Chart(futureProjectionCtx.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['2024', '2025E', '2026E', '2027E'],
+                datasets: [{
+                    label: '營收 (億元)',
+                    data: [3659, 4822, 6030, 7179],
+                    backgroundColor: 'rgba(255, 105, 0, 0.8)',
+                    borderColor: '#FF6900',
+                    borderWidth: 2,
+                    yAxisID: 'y',
+                    order: 2
+                }, {
+                    label: '調整後淨利潤 (億元)',
+                    data: [272, 418, 540, 664],
+                    backgroundColor: 'rgba(51, 51, 51, 0.8)',
+                    borderColor: '#333333',
+                    borderWidth: 2,
+                    type: 'line',
+                    yAxisID: 'y1',
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    order: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            font: { size: 14, weight: 'bold' },
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: '營收 (億元)',
+                            font: { size: 13, weight: 'bold' }
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return '¥' + value;
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: '淨利潤 (億元)',
+                            font: { size: 13, weight: 'bold' }
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return '¥' + value;
+                            }
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                    }
+                }
+                });
+            }
+
+            // EV Delivery Chart
+            const evDeliveryCtx = document.getElementById('evDeliveryChart');
+            if (evDeliveryCtx) {
+                new Chart(evDeliveryCtx.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['2024', '2025E', '2026E', '2027E'],
+                datasets: [{
+                    label: '年交付量 (萬輛)',
+                    data: [13.7, 35, 55, 80],
+                    backgroundColor: [
+                        'rgba(255, 105, 0, 0.6)',
+                        'rgba(255, 105, 0, 0.7)',
+                        'rgba(255, 105, 0, 0.85)',
+                        'rgba(255, 105, 0, 1)'
+                    ],
+                    borderColor: '#FF6900',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            font: { size: 14, weight: 'bold' },
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        callbacks: {
+                            label: function(context) {
+                                return '交付量: ' + context.parsed.y + '萬輛';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '交付量 (萬輛)',
+                            font: { size: 13, weight: 'bold' }
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return value + '萬';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                        }
+                    }
+                    }
+                });
+            }
+
+            // Market Share Chart
+            const marketShareCtx = document.getElementById('marketShareChart');
+            if (marketShareCtx) {
+                new Chart(marketShareCtx.getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: ['Samsung', 'Apple', 'Xiaomi', 'vivo', 'OPPO', '其他'],
+                datasets: [{
+                    data: [19.7, 15.7, 14.4, 9.2, 7.8, 33.2],
+                    backgroundColor: [
+                        '#1428A0',
+                        '#555555',
+                        '#FF6900',
+                        '#0066CC',
+                        '#00A86B',
+                        '#CCCCCC'
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 15
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            font: { size: 14, weight: 'bold' },
+                            padding: 20,
+                            generateLabels: function(chart) {
+                                const data = chart.data;
+                                return data.labels.map((label, i) => {
+                                    const value = data.datasets[0].data[i];
+                                    return {
+                                        text: `${label}: ${value}%`,
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        hidden: false,
+                                        index: i
+                                    };
+                                });
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                        }
+                    }
+                    }
+                });
+            }
+
+            // Innovation Product Market Chart
+            const innovationMarketCtx = document.getElementById('innovationMarketChart');
+            if (innovationMarketCtx) {
+                new Chart(innovationMarketCtx.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['2026', '2027', '2028', '2029', '2030'],
+                        datasets: [{
+                        label: '銷量 (萬台)',
+                        data: [100, 300, 650, 1200, 2000],
+                        backgroundColor: 'rgba(255, 105, 0, 0.7)',
+                        borderColor: '#FF6900',
+                        borderWidth: 2,
+                        yAxisID: 'y',
+                        order: 2
+                    }, {
+                        label: '營收 (億元)',
+                        data: [30, 90, 195, 360, 600],
+                        backgroundColor: 'rgba(51, 51, 51, 0.7)',
+                        borderColor: '#333333',
+                        borderWidth: 2,
+                        type: 'line',
+                        yAxisID: 'y1',
+                        tension: 0.4,
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        order: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                font: { size: 13, weight: 'bold' },
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            callbacks: {
+                                title: function(context) {
+                                    return context[0].label + '年';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: '銷量 (萬台)',
+                                font: { size: 12, weight: 'bold' }
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '萬';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: '營收 (億元)',
+                                font: { size: 12, weight: 'bold' }
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '¥' + value + '億';
+                                }
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                        }
+                    }
+                });
+            }
+
+            // Smartphone Market Share Chart
+            const smartphoneMarketCtx = document.getElementById('smartphoneMarketChart');
+            if (smartphoneMarketCtx) {
+                new Chart(smartphoneMarketCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['三星', 'Apple', '小米', '華為', 'OPPO', 'vivo', '其他'],
+                        datasets: [{
+                        data: [19.5, 18.2, 13.8, 11.3, 8.4, 7.2, 21.6],
+                        backgroundColor: [
+                            '#1428A0',
+                            '#000000',
+                            '#FF6900',
+                            '#E60012',
+                            '#00A862',
+                            '#1670CB',
+                            '#CCCCCC'
+                        ],
+                        borderWidth: 3,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                font: { size: 13, weight: 'bold' },
+                                padding: 15,
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    return data.labels.map((label, i) => {
+                                        const value = data.datasets[0].data[i];
+                                        return {
+                                            text: `${label}: ${value}%`,
+                                            fillStyle: data.datasets[0].backgroundColor[i],
+                                            hidden: false,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.parsed + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+                });
+            }
+
+            // EV Market Share Chart
+            const evMarketCtx = document.getElementById('evMarketChart');
+            if (evMarketCtx) {
+                new Chart(evMarketCtx.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['比亞迪', '特斯拉', '理想', '蔚來', '問界', '小米', '其他'],
+                        datasets: [{
+                        label: '市場份額 (%)',
+                        data: [32.8, 15.4, 8.6, 5.2, 4.8, 2.1, 31.1],
+                        backgroundColor: [
+                            '#0062CC',
+                            '#E82127',
+                            '#1E50AE',
+                            '#00BFFF',
+                            '#000000',
+                            '#FF6900',
+                            '#CCCCCC'
+                        ],
+                        borderWidth: 0,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    return '市場份額: ' + context.parsed.x + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 35,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                        }
+                    }
+                });
+            }
+
+            // Competitive Positioning Chart (Scatter)
+            const competitivePositionCtx = document.getElementById('competitivePositionChart');
+            if (competitivePositionCtx) {
+                new Chart(competitivePositionCtx.getContext('2d'), {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                        label: 'Apple',
+                        data: [{x: 95, y: 42.8}],
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        borderColor: '#000000',
+                        borderWidth: 2,
+                        pointRadius: 12,
+                        pointHoverRadius: 15
+                    }, {
+                        label: '三星',
+                        data: [{x: 75, y: 28.4}],
+                        backgroundColor: 'rgba(20, 40, 160, 0.8)',
+                        borderColor: '#1428A0',
+                        borderWidth: 2,
+                        pointRadius: 12,
+                        pointHoverRadius: 15
+                    }, {
+                        label: '華為',
+                        data: [{x: 85, y: 35.2}],
+                        backgroundColor: 'rgba(230, 0, 18, 0.8)',
+                        borderColor: '#E60012',
+                        borderWidth: 2,
+                        pointRadius: 12,
+                        pointHoverRadius: 15
+                    }, {
+                        label: '小米',
+                        data: [{x: 65, y: 12.6}],
+                        backgroundColor: 'rgba(255, 105, 0, 0.8)',
+                        borderColor: '#FF6900',
+                        borderWidth: 3,
+                        pointRadius: 15,
+                        pointHoverRadius: 18
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: { size: 14, weight: 'bold' },
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 15,
+                            callbacks: {
+                                label: function(context) {
+                                    return [
+                                        context.dataset.label,
+                                        '品牌溢價: ' + context.parsed.x,
+                                        '毛利率: ' + context.parsed.y + '%'
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: '品牌溢價指數 (0-100)',
+                                font: { size: 14, weight: 'bold' }
+                            },
+                            min: 50,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: '毛利率 (%)',
+                                font: { size: 14, weight: 'bold' }
+                            },
+                            min: 0,
+                            max: 50,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        }
+                        }
+                    }
+                });
+            }
+
+            // Smooth scroll for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }); // End of DOMContentLoaded
+    </script>
+</body>
+</html>
