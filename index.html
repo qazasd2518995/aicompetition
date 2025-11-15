@@ -924,10 +924,15 @@
 </head>
 <body>
     <!-- 背景音樂 -->
-    <audio autoplay loop>
+    <audio id="bgMusic" loop>
         <source src="Xiaomi NeuroLens.mp3" type="audio/mpeg">
         您的瀏覽器不支援音訊播放。
     </audio>
+
+    <!-- 音樂控制按鈕 -->
+    <button id="musicToggle" style="position: fixed; bottom: 30px; right: 30px; z-index: 10000; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #FF6900, #FF0080); border: none; color: white; font-size: 24px; cursor: pointer; box-shadow: 0 4px 20px rgba(255, 105, 0, 0.5); transition: all 0.3s ease;">
+        <i class="fas fa-volume-up"></i>
+    </button>
 
     <!-- Navigation -->
     <nav>
@@ -2662,6 +2667,50 @@
                 });
             });
         }); // End of DOMContentLoaded
+
+        // 音樂控制功能
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        let isPlaying = false;
+
+        // 嘗試自動播放（某些瀏覽器允許）
+        bgMusic.play().then(() => {
+            isPlaying = true;
+            musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+        }).catch(() => {
+            // 自動播放失敗，等待用戶點擊
+            isPlaying = false;
+            musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            musicToggle.style.animation = 'pulse 2s infinite';
+        });
+
+        // 點擊按鈕切換音樂
+        musicToggle.addEventListener('click', function() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                musicToggle.style.animation = 'none';
+            } else {
+                bgMusic.play();
+                musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                musicToggle.style.animation = 'none';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // 添加脈動動畫樣式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); box-shadow: 0 4px 20px rgba(255, 105, 0, 0.5); }
+                50% { transform: scale(1.1); box-shadow: 0 4px 30px rgba(255, 105, 0, 0.8); }
+            }
+            #musicToggle:hover {
+                transform: scale(1.05);
+                box-shadow: 0 6px 25px rgba(255, 105, 0, 0.7);
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
